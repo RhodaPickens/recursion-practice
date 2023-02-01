@@ -39,9 +39,19 @@ be recursively calling `advancedExponent`. Find a way to visually see how many
 times `advancedExponent` is being recursively called.
 ***********************************************************************/
 
+let advancedExponent = (b, n) => {  // 2, 4
 
-function advancedExponent(b, n) {
-  // your code here
+  if (n === 0) return 1;  // base cases
+  if (n === 1) return b;
+
+  if (n % 2 === 0) {            // if even
+    const factor = advancedExponent(b, n / 2)
+    return factor * factor;
+  } else {                      // if odd
+    const factor = advancedExponent(b, (n - 1) / 2);
+    return b * factor * factor;
+  }
+
 }
 
 
