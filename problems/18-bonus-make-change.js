@@ -51,16 +51,32 @@ you can start by writing a solution that calculates and compares all of the
 permutations without storing them in an array. Then go back and refactor your
 solution so that it only calculates and compares all of the different
 combinations.
-***********************************************************************/
+// ***********************************************************************/
 
-function greedyMakeChange(target, coins = [25, 10, 5, 1]) {
-  // no tests for greedyMakeChange so make sure to test this on your own
-  // your code here
+
+function makeChange(target, coins = [25, 10, 5, 1]) {
+  let result = [];
+
+  for (let i = 0; i < coins.length; i++) {  // iterate over coins
+    let coin = coins[i];
+    if (target - coin >= 0) {               // if coin goes into target, take it off target and push to array
+      target -= coin;
+      result.push(coin);
+      let change = makeChange(target, coins);
+      if (change !== null) {
+        return result.concat(change);       // returns recursive call when there is still money left
+      }                                     // merges current results array with results of recursive call
+    }
+  }
+
+  if (target === 0) {
+    return result;
+  } else {
+    return null;                            // this indicates that it is not a valid path, if null is returned
+  }
+
 }
 
-function makeBetterChange(target, coins = [25, 10, 5, 1]) {
-  // your code here
-}
 
 
 /**************DO NOT MODIFY ANYTHING UNDER THIS LINE*****************/
